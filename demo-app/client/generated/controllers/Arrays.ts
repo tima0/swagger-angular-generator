@@ -7,7 +7,7 @@
 
 import {HttpClient, HttpParams} from '@angular/common/http';
 import {Injectable} from '@angular/core';
-import {Observable} from 'rxjs/Observable';
+import {Observable} from 'rxjs';
 
 import * as __model from '../model';
 
@@ -32,7 +32,7 @@ export class ArraysService {
     };
 
     let queryParams = new HttpParams();
-    Object.entries(queryParamBase).forEach(([key, value]) => {
+    Object.entries(queryParamBase).forEach(([key, value]: [string, any]) => {
       if (value !== undefined) {
         if (typeof value === 'string') queryParams = queryParams.set(key, value);
         else queryParams = queryParams.set(key, JSON.stringify(value));
@@ -41,7 +41,7 @@ export class ArraysService {
 
     const bodyParams = params.arraySection;
     const bodyParamsWithoutUndefined: any = {};
-    Object.entries(bodyParams || {}).forEach(([key, value]) => {
+    Object.entries(bodyParams || {}).forEach(([key, value]: [string, any]) => {
       if (value !== undefined) bodyParamsWithoutUndefined[key] = value;
     });
     return this.http.post<__model.TestStructuresGeneratedInlineModel>(`/api-base-path/arrays/test-structures`, bodyParamsWithoutUndefined, {params: queryParams});
